@@ -27,7 +27,7 @@ class DeveloperContactTableSeeder extends Seeder
                'email' => $faker->email,
                'phoneno' => $faker->phoneNumber,
                'skypeid' => $faker->domainWord . '.' . ucfirst($firstname),
-               'linkedin' => 'http://www.linkedin.com/' . '/' . $firstname . '-' . $lastname,
+               'linkedin' => 'http://www.linkedin.com' . '/' . $firstname . '-' . $lastname,
                'country' => $faker->randomElement(array ('Ghana','Nigeria')),
            ]);
        }
