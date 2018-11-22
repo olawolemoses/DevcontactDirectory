@@ -13,7 +13,7 @@ class CreateDeveloperCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('developer_category', function (Blueprint $table) {
+        Schema::create('developer_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('category_id');
             $table->integer('developer_id');
@@ -28,6 +28,6 @@ class CreateDeveloperCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('developer_category');
+        Schema::dropIfExists('developer_categories');
     }
 }

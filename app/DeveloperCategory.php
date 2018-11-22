@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DevelopersContact extends Model
+class DeveloperCategory extends Model
 {
 
     /**
@@ -13,7 +13,7 @@ class DevelopersContact extends Model
      * @var array
      */
     protected $fillable = [
-        'firstname', 'cat', 'lastname', 'email', 'phoneno', 'github', 'country'
+        'category_id', 'developer_id'
     ];
 
     /**

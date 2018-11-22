@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDeveloperContactTable extends Migration
+class CreateDeveloperContactsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateDeveloperContactTable extends Migration
      */
     public function up()
     {
-        Schema::create('developer_contact', function (Blueprint $table) {
+        Schema::create('developer_contacts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('firstname');
             $table->string('lastname');
             $table->string('email');
             $table->string('skypeid');
+            $table->string('linkedin');
             $table->string('phoneno');
-            $table->string('github');
             $table->string('country');
             $table->timestamps();
         });
@@ -33,6 +33,6 @@ class CreateDeveloperContactTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('developer_contact');
+        Schema::dropIfExists('developer_contacts');
     }
 }
