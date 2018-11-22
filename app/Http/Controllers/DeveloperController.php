@@ -46,14 +46,21 @@ class DeveloperController extends Controller
         $paginator = DeveloperContact::with('developerCategory.category')->paginate();
 
         $developers = $paginator->getCollection();
+
         $resource = new Collection($developers, new DeveloperContactTransformer);
+
         $resource->setPaginator(new IlluminatePaginatorAdapter($paginator));
+
         return $this->fractal->createData($resource)->toArray();
     }
 
     public function showOneDeveloper($id)
     {
-        return response()->json(DeveloperContact::find($id));
+        $developer = DeveloperContact::find($id);
+
+        $resource = new Item($developer, new DeveloperContactTransformer);
+
+        return $this->fractal->createData($resource)->toArray();
     }
 
     public function create(Request $request, $id)
@@ -77,24 +84,58 @@ class DeveloperController extends Controller
         $developerCategory->category_id = $category->id;
         $developerCategory->save();
 
-        return response()->json($developer, 201);
+        $resource = new Item($developer, new DeveloperContactTransformer);
+
+        return $this->fractal->createData($resource)->toArray();
     }
 
-    public function update($id, Request $request)
+    public function update( Request $request, $id)
     {
+      $this->validate($request, [
+          'firstname' => 'required',
+          'lastname' => 'required',
+          'email' => 'required|email|unique:developer_contacts,id,'.$request->get('id'),
+          'phoneno' => 'required',
+          'skypeid' => 'required|unique:developer_contacts,id,'.$request->get('id'),
+          'linkedin' => 'required|unique:developer_contacts,id,'.$request->get('id'),
+          'country' => 'required|alpha',
+      ]);
         $developer = DeveloperContact::findOrFail($id);
         $developer->update($request->all());
 
-        return response()->json($developer, 200);
+        if($developer){
+            //return updated data
+            $resource = new Item(DeveloperContact::find($id), new DeveloperContactTransformer);
+            return $this->fractal->createData($resource)->toArray();
+        }
+        //Return error 400 response if updated was not successful
+        return $this->errorResponse('Failed to update Developer Contact!', 400);
     }
 
     public function delete($id)
     {
-        $developer = DeveloperContact::findOrFail($id);
+        if(!DeveloperContact::find($id))
+          return $this->errorResponse('Developer not found!', 404);
+
+        $developer = DeveloperContact::find($id);
+
         $developerCategory = $developer->developerCategory();
+
         $developerCategory->delete();
 
-        $developer->delete();
-        return response('Deleted Successfully', 200);
+        if($developer->delete())
+          return $this->customResponse('Developer deleted successfully!', 410);
+
+        return $this->errorResponse('Failed to delete developer!', 400);
+    }
+
+    public function customResponse($message = 'success', $status = 200)
+    {
+        return response(['status' =>  $status, 'message' => $message], $status);
+    }
+
+    public function errorResponse($message = 'fail', $status = 404)
+    {
+        return response(['status' =>  $status, 'message' => $message], $status);
     }
 }
