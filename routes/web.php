@@ -21,8 +21,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
   $router->get('developers/{id}', ['uses' => 'DeveloperController@showOneDeveloper']);
 
-  // create 
-  $router->post('developers', ['uses' => 'DeveloperController@create']);
+  // creat
+  $router->post('developers/{category}', ['uses' => 'DeveloperController@create']);
 
   $router->delete('developers/{id}', ['uses' => 'DeveloperController@delete']);
 

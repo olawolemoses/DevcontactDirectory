@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DeveloperContact;
+use App\Category;
 use Illuminate\Http\Request;
 
 class DeveloperController extends Controller
@@ -11,8 +12,6 @@ class DeveloperController extends Controller
     public function showAllDevelopers()
     {
         $developers = DeveloperContact::with('developerCategory.category')->get();
-
-
         return response()->json($developers);
     }
 
@@ -21,7 +20,7 @@ class DeveloperController extends Controller
         return response()->json(DeveloperContact::find($id));
     }
 
-    public function create(Request $request)
+    public function create(Request $request, Category $category)
     {
       $this->validate($request, [
           'firstname' => 'required',
