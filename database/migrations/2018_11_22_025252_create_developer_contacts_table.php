@@ -17,10 +17,10 @@ class CreateDeveloperContactsTable extends Migration
             $table->increments('id');
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('email');
-            $table->string('skypeid');
-            $table->string('linkedin');
-            $table->string('phoneno');
+            $table->string('email')->unique();
+            $table->string('skypeid')->unique();
+            $table->string('linkedin')->unique();
+            $table->string('phoneno')->unique();
             $table->string('country');
             $table->timestamps();
         });

@@ -23,11 +23,11 @@ class DeveloperController extends Controller
       $this->validate($request, [
           'firstname' => 'required',
           'lastname' => 'required',
-          'cat' => 'required',
+          'email' => 'required|email|unique:developer_contacts'
           'phoneno' => 'required|numeric',
-          'github' => 'required',
+          'skypeid' => 'required|unique:developer_contacts',
+          'linkedin' => 'required|unique:developer_contacts',
           'country' => 'required|alpha',
-          'email' => 'required|email|unique:users'
       ]);
 
         $author = DevelopersContact::create($request->all());
