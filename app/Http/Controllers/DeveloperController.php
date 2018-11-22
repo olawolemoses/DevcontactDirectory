@@ -2,13 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use League\Fractal;
+use League\Fractal\Manager;
+use League\Fractal\Resource\Item;
+use League\Fractal\Resource\Collection;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+
 use App\DeveloperContact;
 use App\DeveloperCategory;
 use App\Category;
+
+use App\Transformers\DeveloperContactTransformer;
 use Illuminate\Http\Request;
 
 class DeveloperController extends Controller
 {
+
+  private $fractal;
+
+  public function __construct()
+  {
+      $this->fractal = new Manager();
+  }
 
   public function showAllDevelopersByCategory($id)
   {
@@ -18,13 +33,22 @@ class DeveloperController extends Controller
                     })->get();
 
 
+
       return response()->json($developers);
   }
 
     public function showAllDevelopers()
     {
-        $developers = DeveloperContact::with('developerCategory.category')->get();
-        return response()->json($developers);
+        $developers = DeveloperContact::with('developerCategory.category');
+
+        $developers = $developers->paginate();
+
+        $paginator = DeveloperContact::with('developerCategory.category')->paginate();
+
+        $developers = $paginator->getCollection();
+        $resource = new Collection($developers, new DeveloperContactTransformer);
+        $resource->setPaginator(new IlluminatePaginatorAdapter($paginator));
+        return $this->fractal->createData($resource)->toArray();
     }
 
     public function showOneDeveloper($id)
