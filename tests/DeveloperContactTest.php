@@ -133,9 +133,9 @@ class DeveloperContactTest extends TestCase
         /**
          * /products/id [DELETE]
          */
-        public function testShouldDeleteProduct(){
+        public function testShouldDeleteDeveloperContact(){
 
-            $this->delete("products/5", [], []);
+            $this->delete("api/developers/22", [], []);
             $this->seeStatusCode(410);
             $this->seeJsonStructure([
                     'status',
