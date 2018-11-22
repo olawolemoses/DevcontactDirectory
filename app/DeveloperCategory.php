@@ -22,4 +22,12 @@ class DeveloperCategory extends Model
      * @var array
      */
     protected $hidden = [];
+
+    public function contact() {
+        return $this->belongsTo('App\DeveloperContact', 'developer_id');
+    }
+
+    public function category() {
+        return $this->belongsTo('App\Category', 'category_id');
+    }
 }

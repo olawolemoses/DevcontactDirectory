@@ -22,4 +22,8 @@ class Category extends Model
      * @var array
      */
     protected $hidden = [];
+
+    public function developerCategory() {
+        return $this->hasMany('App\DeveloperCategory', 'contact_id');
+    }    
 }

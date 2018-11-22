@@ -10,7 +10,10 @@ class DeveloperController extends Controller
 
     public function showAllDevelopers()
     {
-        return response()->json(DeveloperContact::all());
+        $developers = DeveloperContact::with('developerCategory.category')->get();
+
+
+        return response()->json($developers);
     }
 
     public function showOneDeveloper($id)
