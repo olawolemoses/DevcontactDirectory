@@ -47,15 +47,19 @@ class DeveloperController extends Controller
 
     public function update($id, Request $request)
     {
-        $author = DeveloperContact::findOrFail($id);
-        $author->update($request->all());
+        $developer = DeveloperContact::findOrFail($id);
+        $developer->update($request->all());
 
-        return response()->json($author, 200);
+        return response()->json($developer, 200);
     }
 
     public function delete($id)
     {
-        DeveloperContact::findOrFail($id)->delete();
+        $developer = DeveloperContact::findOrFail($id);
+        $developerCategory = $developer->developerCategory();
+        $developerCategory->delete();
+
+        $developer->delete();
         return response('Deleted Successfully', 200);
     }
 }
