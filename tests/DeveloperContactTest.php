@@ -100,23 +100,32 @@ class DeveloperContactTest extends TestCase
         }
 
         /**
-         * /products/id [PUT]
+         * /api/developers/21 [PUT]
          */
-        public function testShouldUpdateProduct(){
+        public function testShouldUpdateDeveloperContact(){
             $parameters = [
-                'product_name' => 'Infinix Hot Note',
-                'product_description' => 'Champagne Gold, 13M AF + 8M FF 4G Smartphone',
+                  "firstname"=> "Adeola",
+                  "lastname"=> "Habib",
+                  "email"=> "deolss.habbib@gmail.com",
+                  "skypeid"=> "deola.habbib",
+                  "linkedin"=> "http://www.linkedin.com//deola-habbib",
+                  "phoneno"=> "2347065396750",
+                  "country"=> "Nigeria"
             ];
-            $this->put("products/4", $parameters, []);
+            $this->put("api/developers/21", $parameters, []);
             $this->seeStatusCode(200);
             $this->seeJsonStructure(
                 ['data' =>
                     [
-                        'product_name',
-                        'product_description',
-                        'created_at',
-                        'updated_at',
-                        'links'
+                      'firstname',
+                      'lastname',
+                      'email',
+                      'skypeid',
+                      'linkedin',
+                      'phoneno',
+                      'country',
+                      'developer_category',
+                      'links'
                     ]
                 ]
             );
