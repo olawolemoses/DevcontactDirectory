@@ -63,15 +63,13 @@ class DeveloperController extends Controller
         return $this->fractal->createData($resource)->toArray();
     }
 
-    public function create(Request $request, $id)
+    public function create(Request $request )
     {
-      $category = Category::where('id', $id)->orWhere('slug', $id)->firstOrFail();
-
       $this->validate($request, [
           'firstname' => 'required',
           'lastname' => 'required',
           'email' => 'required|email|unique:developer_contacts',
-          'phoneno' => 'required|numeric',
+          'phoneno' => 'required',
           'skypeid' => 'required|unique:developer_contacts',
           'linkedin' => 'required|unique:developer_contacts',
           'country' => 'required|alpha',
@@ -79,14 +77,39 @@ class DeveloperController extends Controller
 
         $developer = DeveloperContact::create($request->all());
 
-        $developerCategory = new DeveloperCategory;
-        $developerCategory->developer_id = $developer->id;
-        $developerCategory->category_id = $category->id;
-        $developerCategory->save();
-
         $resource = new Item($developer, new DeveloperContactTransformer);
 
         return $this->fractal->createData($resource)->toArray();
+    }
+
+    public function addToCategory(Request $request, $id)
+    {
+      $category = Category::where('id', $id)->orWhere('slug', $id)->firstOrFail();
+
+      if(!$category)
+          return $this->errorResponse('Category not found!', 404);
+
+        $this->validate($request, [
+            'developer_id' => 'required'
+        ]);
+
+        if(!DeveloperContact::find($request->input('developer_id')))
+            return $this->errorResponse('Developer not found!', 404);
+
+        $developer = DeveloperContact::findOrFail($request->input('developer_id'));
+
+        $developerCategory = DeveloperCategory::where('category_id', $id)->firstOrFail();
+
+        if( is_null( $developerCategory ) ) {
+            $developerCategory = new DeveloperCategory;
+            $developerCategory->category_id = $id;
+        }
+
+        $developerCategory->developer_id = $developer->id;
+        if( $developerCategory->save() )
+            return $this->customResponse('Developer added to category successfully!', 200);
+        else
+            return $this->errorResponse('Failed to update category!', 400);
     }
 
     public function update( Request $request, $id)
@@ -124,6 +147,7 @@ class DeveloperController extends Controller
         $developerCategory->delete();
 
         if($developer->delete())
+
           return $this->customResponse('Developer deleted successfully!', 410);
 
         return $this->errorResponse('Failed to delete developer!', 400);

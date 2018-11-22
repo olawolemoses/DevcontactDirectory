@@ -133,10 +133,22 @@ class DeveloperContactTest extends TestCase
         /**
          * /products/id [DELETE]
          */
-        public function testShouldDeleteDeveloperContact(){
+        public function testShouldDeleteDeveloperContact() {
 
             $this->delete("api/developers/22", [], []);
             $this->seeStatusCode(410);
+            $this->seeJsonStructure([
+                    'status',
+                    'message'
+            ]);
+        }
+
+        public function testShouldAddDeveloperContactToCategory() {
+            $parameters = [
+                "developer_id"=> "2"
+            ];
+            $this->post("api/category/2", $parameters, []);
+            $this->seeStatusCode(200);
             $this->seeJsonStructure([
                     'status',
                     'message'
