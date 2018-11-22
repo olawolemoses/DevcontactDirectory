@@ -22,7 +22,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
   $router->get('developers/{id}', ['uses' => 'DeveloperController@showOneDeveloper']);
 
   // creat
-  $router->post('developers/{category}', ['uses' => 'DeveloperController@create']);
+  $router->post('developers/{id}', ['uses' => 'DeveloperController@create']);
 
   $router->delete('developers/{id}', ['uses' => 'DeveloperController@delete']);
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DeveloperContact;
+use App\DeveloperCategory;
 use App\Category;
 use Illuminate\Http\Request;
 
@@ -20,8 +21,10 @@ class DeveloperController extends Controller
         return response()->json(DeveloperContact::find($id));
     }
 
-    public function create(Request $request, Category $category)
+    public function create(Request $request, $id)
     {
+      $category = Category::where('id', $id)->orWhere('slug', $id)->firstOrFail();
+
       $this->validate($request, [
           'firstname' => 'required',
           'lastname' => 'required',
@@ -32,9 +35,14 @@ class DeveloperController extends Controller
           'country' => 'required|alpha',
       ]);
 
-        $author = DeveloperContact::create($request->all());
+        $developer = DeveloperContact::create($request->all());
 
-        return response()->json($author, 201);
+        $developerCategory = new DeveloperCategory;
+        $developerCategory->developer_id = $developer->id;
+        $developerCategory->category_id = $category->id;
+        $developerCategory->save();
+
+        return response()->json($developer, 201);
     }
 
     public function update($id, Request $request)
