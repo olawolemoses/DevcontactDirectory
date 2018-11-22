@@ -3,12 +3,15 @@
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
+
 class DeveloperContactTest extends TestCase
 {
+  use DatabaseTransactions;
     /**
      * api/developers [GET]
      */
     public function testShouldReturnAllDeveloperContacts(){
+
         $this->get("api/developers", []);
         $this->seeStatusCode(200);
 
