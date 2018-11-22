@@ -1,18 +1,12 @@
-# Lumen PHP Framework
-
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/lumen-framework/v/unstable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
+# Developer Contact Directory
 
 An API built with Laravel Lumen for developers contact directory. The API is able to perform CRUD operations on Developer's contact details. The API is also able to categorise the developer using the appropriate end point.
 PHPUnit was used to perform unit tests on the required endpoints .
 
 
-## Official Documentation
+## Development Language
 
-Documentation for the framework can be found on the [Lumen website](http://lumen.laravel.com/docs).
+PHP and the awesome  [Lumen framework](http://lumen.laravel.com/docs).
 
 ## Security Vulnerabilities
 
