@@ -10,6 +10,17 @@ use Illuminate\Http\Request;
 class DeveloperController extends Controller
 {
 
+  public function showAllDevelopersByCategory($id)
+  {
+      $developers = DeveloperContact::whereHas('developerCategory.category', function ($query) use($id) {
+                        $query->where('id', '=', $id)
+                        ->orWhere('slug', $id);
+                    })->get();
+
+
+      return response()->json($developers);
+  }
+
     public function showAllDevelopers()
     {
         $developers = DeveloperContact::with('developerCategory.category')->get();
