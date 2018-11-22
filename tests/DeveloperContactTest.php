@@ -79,7 +79,7 @@ class DeveloperContactTest extends TestCase
                 "country"=> "Nigeria"
             ];
 
-            $this->post("api/category/fullstack", $parameters, []);
+            $this->post("api/developers", $parameters, []);
             $this->seeStatusCode(200);
             $this->seeJsonStructure(
                 ['data' =>
@@ -112,7 +112,7 @@ class DeveloperContactTest extends TestCase
                   "phoneno"=> "2347065396750",
                   "country"=> "Nigeria"
             ];
-            $this->put("api/developers/21", $parameters, []);
+            $this->put("api/developers/5", $parameters, []);
             $this->seeStatusCode(200);
             $this->seeJsonStructure(
                 ['data' =>
@@ -135,7 +135,7 @@ class DeveloperContactTest extends TestCase
          */
         public function testShouldDeleteDeveloperContact() {
 
-            $this->delete("api/developers/22", [], []);
+            $this->delete("api/developers/20", [], []);
             $this->seeStatusCode(410);
             $this->seeJsonStructure([
                     'status',

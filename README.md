@@ -8,10 +8,15 @@ PHPUnit was used to perform unit tests on the required endpoints .
 
 PHP and the awesome  [Lumen framework](http://lumen.laravel.com/docs).
 
-## Security Vulnerabilities
+## Setup
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+* git clone https://github.com/olawolemoses/DevcontactDirectory.git
+* Run composer install
+* php artisan migrate:refresh --seed to migrate the database
+* Run tests
+* - vendor/bin/phpunit
 
-## License
 
-The Lumen framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+## Getting Started
+* PHP >= 7.1
+* Composer must be installed
