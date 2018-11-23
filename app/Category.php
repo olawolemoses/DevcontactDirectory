@@ -28,7 +28,7 @@ class Category extends Model
     protected $hidden = [];
 
     public function developerCategory() {
-        return $this->hasMany('App\DeveloperCategory', 'contact_id');
+        return $this->hasMany('App\DeveloperCategory', 'category_id');
     }
 
     public function getSlugOptions() : SlugOptions

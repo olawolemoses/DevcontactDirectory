@@ -73,7 +73,7 @@ class DeveloperContactTest extends TestCase
         public function testShouldCreateDeveloperContact(){
 
             $parameters = [
-                "firstname"=> "Deola1",
+                //"firstname"=> "Deola1",
                 "lastname"=> "Habib1",
                 "email"=> "deola.habbib1@gmail.com",
                 "skypeid"=> "deola1.habbib1",
@@ -107,13 +107,13 @@ class DeveloperContactTest extends TestCase
          */
         public function testShouldUpdateDeveloperContact(){
             $parameters = [
-                  "firstname"=> "Adeola",
-                  "lastname"=> "Habib",
-                  "email"=> "deolss.habbib@gmail.com",
-                  "skypeid"=> "deola.habbib",
-                  "linkedin"=> "http://www.linkedin.com//deola-habbib",
-                  "phoneno"=> "2347065396750",
-                  "country"=> "Nigeria"
+              "firstname"=>"Adeola",
+            	"lastname"=>"Habib",
+            	"email"=>"deols.habbib@gmail.com",
+            	"skypeid"=>"deols.habbib",
+            	"linkedin"=>"http=>//www.linkedin.com//deols-habbib",
+            	"phoneno"=>"234706539908",
+            	"country"=>"Nigeria"
             ];
             $this->put("api/developers/5", $parameters, []);
             $this->seeStatusCode(200);

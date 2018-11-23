@@ -117,10 +117,10 @@ class DeveloperController extends Controller
       $this->validate($request, [
           'firstname' => 'required',
           'lastname' => 'required',
-          'email' => 'required|email|unique:developer_contacts,id,'.$request->get('id'),
+          'email' => 'required|email|unique:developer_contacts,email,'.$request->get('id'),
           'phoneno' => 'required',
-          'skypeid' => 'required|unique:developer_contacts,id,'.$request->get('id'),
-          'linkedin' => 'required|unique:developer_contacts,id,'.$request->get('id'),
+          'skypeid' => 'required|unique:developer_contacts,skypeid,'.$request->get('id'),
+          'linkedin' => 'required|unique:developer_contacts,linkedin,'.$request->get('id'),
           'country' => 'required|alpha',
       ]);
         $developer = DeveloperContact::findOrFail($id);
